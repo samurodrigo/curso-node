@@ -21,7 +21,7 @@ app.get("/", function(req, res){
 
 app.get("/cad", function(req, res){
     res.render("formulario")
-});
+})
 
 app.post("/add", function(req, res){
     Post.create({
@@ -32,7 +32,19 @@ app.post("/add", function(req, res){
     }).catch((error) => {
         res.send("Ocorreu um erro: " + error)
     })
-});
+})
+
+app.get('/deletar/:id', (req, res) => {
+    Post.destroy({
+        where: {
+            "id": req.params.id
+        }
+    }).then(() =>{
+        res.send("Postagem deletada com sucesso!")
+    }).catch(()=>{
+        res.send("Esta postagem não existe!")
+    })
+})
 
 
 app.listen(8090, function(){
