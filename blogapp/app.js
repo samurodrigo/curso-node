@@ -28,7 +28,11 @@ const admin = require("./routes/admin")
         app.use(bodyParser.urlencoded({extended: true}))
         app.use(bodyParser.json())
     // Handlebars
-        app.engine('handlebars', handlebars({defaultLayout: "main"}))
+        app.engine('handlebars', handlebars(
+            {
+                defaultLayout: "main"
+            }
+        ))
         app.set("view engine", "handlebars")
     // Mongoose
         mongoose.Promise = global.Promise
