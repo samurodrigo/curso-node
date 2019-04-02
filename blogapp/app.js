@@ -36,7 +36,8 @@ const admin = require("./routes/admin")
         app.set("view engine", "handlebars")
     // Mongoose
         mongoose.Promise = global.Promise
-        mongoose.connect("mongodb://localhost/blogapp", {
+        console.log(process.env.DB_PASS)
+        mongoose.connect("mongodb+srv://mongo_teste:<" + process.env.DB_PASS + ">@cluster0-mkobi.mongodb.net/test?retryWrites=true", {
             useNewUrlParser: true
         })
         .then(() => {
