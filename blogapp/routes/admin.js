@@ -216,7 +216,6 @@ router.get("/postagens/edit/:id", (req, res) => {
                     categorias: categorias, 
                     helpers: {
                         select: function(selectName, selectedValue, arr){
-                            console.log(selectName, selectedValue, arr)
                             var str = '<select name="' + selectName + '" id="' + selectName + '" class="form-control">'
                             arr.forEach((option) => {
                                 str += '<option value="' + option._id + '" ' + option._id == selectedValue ? 'selected' : '' + '>' + option.name + '</option>'
