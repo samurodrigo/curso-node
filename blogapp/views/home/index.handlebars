@@ -1,13 +1,20 @@
+<div class="jumbotron">
+  <h1 class="display-4">Olá, seja bem vindo ao meu blog!</h1>
+  <p class="lead">Este blog foi desenvolvimento usando node + mongodb</p>
+  <hr class="my-4">
+  <p>Aqui voce pode ler novidades sobre programação e tecnologia em geral</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Criar conta</a>
+</div>
 {{#each postagens}}
     <div class="card mb-5">
         <div class="card-body">
-            <h3>{{titulo}}</h3>
-            <small>{{data}}</small><br>
-            <small>Categoria: {{categoria.name}}</small>
-            <hr>
+            <h3>{{titulo}}</h3>            
             {{descricao}}
             <br>
-            <a href="/postagens/view/{{slug}}">Ver postagem</a>
+            <a href="/postagens/view/{{slug}}">Leia mais</a>
+            <hr>
+            <small>{{data}}</small><br>
+            <small>Categoria: {{categoria.name}}</small>            
         </div>
     </div>
 {{/each}}

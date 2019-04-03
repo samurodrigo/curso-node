@@ -8,8 +8,15 @@ const flash = require("connect-flash")
 
 const app = express()
 const admin = require("./routes/admin")
-
+require("./models/Postagem")
 const Postagem = mongoose.model("postagens")
+require("./models/Categoria")
+const Categoria = mongoose.model("categorias")
+const usuarios = require("./routes/usuario")
+const passport = require("passport")
+require("./config/auth")(passport)
+
+
 // Configurações
 
     //Sessão
@@ -18,12 +25,16 @@ const Postagem = mongoose.model("postagens")
             resave: true,
             saveUninitialized: true
         }))
+
+        app.use(passport.initialize())
+        app.use(passport.session())
         app.use(flash())
 
     // Middleware
         app.use((req, res, next) => {
             res.locals.success_msg = req.flash("success_msg")
             res.locals.error_msg = req.flash("error_msg")
+            res.locals.error = req.flash("error")
             next()
         })
     //Body Parser
@@ -71,7 +82,40 @@ const Postagem = mongoose.model("postagens")
             res.render("home/index")
         })
     })
+
+    app.get("/categorias", (req, res)=>{
+        Categoria.find().then((categorias)=>{
+            res.render("categorias/index", {categorias: categorias})
+        })
+        .catch((error)=>{
+            req.flash("error_msg", "Não foi possível listar as categorias")
+            res.redirect("/")
+        })
+    })
+    app.get("/categorias/:slug", (req, res)=>{
+        Categoria.findOne({slug: req.params.slug}).then((categoria)=>{
+            if(categoria){
+                Postagem.find({categoria: categoria._id}).then((postagens)=>{
+                    res.render("categorias/postagens", {postagens: postagens, categoria: categoria})
+                })
+                .catch((error) =>{
+                    console.log(error)
+                    req.flash("error_msg", "Não foi possível obter as postagens da categoria informada.")
+                    res.redirect("/")
+                })
+            }else{
+                req.flash("error_msg", "Esta categoria não existe")
+                res.redirect("/")
+            }
+        })
+        .catch((error)=>{
+            console.log(error)
+            req.flash("error_msg", "Não foi possível obter a categoria")
+            res.redirect("/")
+        })
+    })
     app.use("/admin", admin)
+    app.use("/usuarios", usuarios )
 // Outros
 
 const PORT = 8081
