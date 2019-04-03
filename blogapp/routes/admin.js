@@ -7,8 +7,6 @@ require("../models/Postagem")
 const Categoria = mongoose.model("categorias")
 const Postagem = mongoose.model("postagens")
 
-console.log(handlebars)
-
 router.get("/", (req, res) => {
     res.render("admin/index")
 })

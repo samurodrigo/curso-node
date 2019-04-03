@@ -8,6 +8,8 @@ const flash = require("connect-flash")
 
 const app = express()
 const admin = require("./routes/admin")
+
+const Postagem = mongoose.model("postagens")
 // Configurações
 
     //Sessão
@@ -50,6 +52,25 @@ const admin = require("./routes/admin")
 
 
 // Rota
+    app.get("/", (req, res) => {
+        Postagem.find().populate("categoria").then((postagens) => {
+            res.render("home/index", {postagens: postagens})
+        })
+        .catch((error) => {
+            req.flash("error_msg", "Não foi possível obter as postagens")
+            res.render("home/index")
+        })        
+    });
+    app.get("/postagens/view/:slug", (req, res) => {
+        Postagem.findOne({slug: req.params.slug}).then((postagem)=> {
+            res.render("postagens/view", {postagem: postagem})
+        })
+        .catch((error) => {
+            console.log(error)
+            req.flash("error_msg", "Não foi possível obter a postagem")
+            res.render("home/index")
+        })
+    })
     app.use("/admin", admin)
 // Outros
 
