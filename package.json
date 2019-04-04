@@ -1,0 +1,22 @@
+{
+  "name": "curso-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./blogapp/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samurodrigo/curso-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samurodrigo/curso-node/issues"
+  },
+  "homepage": "https://github.com/samurodrigo/curso-node#readme"
+}
