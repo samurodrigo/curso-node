@@ -5,7 +5,17 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="/categorias">Categorias</a>
-      </li>      
+      </li> 
+      {{#if user}}
+        {{#if  user.ehAdmin}}
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/postagens">Administrar Postagens</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/categorias">Administrar Categorias</a>
+      </li>
+        {{/if}}
+      {{/if}}
     </ul>
   </div>
 {{#if user}}
